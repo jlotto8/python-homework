@@ -14,7 +14,7 @@ def greet(name):
 
 # Task 3 Calculator
 
-def calculator(a, b, operation="multiply"):
+def calc(a, b, operation="multiply"):
     try:
         if operation == "add":
             return a + b
@@ -54,5 +54,25 @@ def data_type_conversion(value, dtype):
         return f"You can't convert {value} into a {dtype}."
 
 
+# task 5 average
 
-
+def grade (*args):
+    try:
+        grade_avg = (sum(args)) / (len(args))
+    # print(sum(args))
+    # print(type())
+        if grade_avg >= 90:
+           return 'A'
+        elif grade_avg >79 and grade_avg <90:
+           return 'B'
+        elif grade_avg >69 and grade_avg <80:
+            return 'C'
+        elif grade_avg >59 and grade_avg <70:
+           return  'D'
+        else:
+            return 'F'
+    # except ValueError:
+        # return f'Invalid data was provided.'
+    except TypeError:
+        return f'Invalid data was provided.'
+print(grade(75,85,95))
