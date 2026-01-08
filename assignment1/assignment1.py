@@ -89,6 +89,13 @@ def repeat(str, cnt):
 # print(repeat('hi',3))
 
 # Task 7: Student Scores, Using **kwargs
+# Create a function called student_scores. It takes one positional parameter and an arbitrary number of keyword parameters. The positional parameter is either "best" or "mean". If it is "best", the name of the student with the higest score is returned. If it is "mean", the average score is returned.
+# As you are using **kwargs, your function can access a variable named kwargs, which is a dict. The next lesson explains about dicts. What you need to know now is the following:
+# A dict is a collection of key value pairs.
+# You can iterate through the dict as follows:
+# for key, value in kwargs.items():
+# You can also get kwargs.keys() and kwargs.values().
+# The arbitrary list of keyword arguments uses the names of students as the keywords and their test score as the value for each.
 
 def student_scores(mode, **kwargs):
     if mode == "best":
@@ -122,7 +129,72 @@ def student_scores(mode, **kwargs):
 
 def titleize(str):
     little_words = ["a", "on", "an", "the", "of", "and", "is","in"] 
-    for i, word in enumerate(str):
-        if word in little_words:
-            
-# Write your code here.git pul
+    result = []
+    words = str.split()
+    for i, word in enumerate(words):
+        
+        if i == 0:
+            result.append(word.capitalize())
+        
+        elif i == len(words) - 1:
+            result.append(word.capitalize())
+
+        elif word in little_words:
+            result.append(word.lower())
+        else:
+            result.append(word.capitalize())
+
+    return " ".join(result)
+
+# Task 9: Hangman, with more String Operations
+# Create a function hangman. It takes two parameters, both strings, the secret and the guess.
+# The secret is some word that the caller doesn't know. So the caller guesses various letters, which are the ones in the guess string.
+# A string is returned. Each letter in the returned string corresponds to a letter in the secret, except any letters that are not in the guess string are replaced with an underscore. The others are returned in place. Not everyone has played this kid's game, but it's common in the US.
+# Example: Suppose the secret is "alphabet" and the guess is "ab". The returned string would be "a___ab__".
+# Note that Python strings are immutable. That means that the following code would give an error:
+# secret = "alphabet"
+# secret[1] = "_"
+# On the other hand, you can concatenate strings with the + operator.
+
+def hangman(secret, guess):
+    result = ""
+    for letter in secret:
+        if letter in guess:
+            result += letter
+        else:
+            result += "_"
+    return result
+
+# Task 10: Pig Latin, Another String Manipulation Exercise
+# Pig Latin is a kid's trick language. Each word is modified according to the following rules. (1) If the string starts with a vowel (aeiou), "ay" is tacked onto the end. 
+# (2) If the string starts with one or several consonants, they are moved to the end and "ay" is tacked on after them. (3) "qu" is a special case, as both of them get moved to the end of the word, as if they were one consonant letter.
+# Create a function called pig_latin. It takes an English string or sentence and converts it to Pig Latin, returning the result. We will assume that there is no punctuation and that everything is lower case.
+
+def pig_latin(sentence):
+    vowels = "aeiou"
+    words = sentence.split()
+    result = []
+
+    for word in words:
+
+        # starts with vowel
+        if word[0] in vowels:
+            result.append(word + "ay")
+
+        # starts with "qu"
+        elif word.startswith("qu"):
+            result.append(word[2:] + "quay")
+
+        # has consonant + "qu" (e.g. "square")
+        elif word[1:3] == "qu":
+            result.append(word[3:] + word[:3] + "ay")
+
+        # normal consonant cluster
+        else:
+            index = 0
+            while index < len(word) and word[index] not in vowels:
+                index += 1
+
+            result.append(word[index:] + word[:index] + "ay")
+
+    return " ".join(result)
